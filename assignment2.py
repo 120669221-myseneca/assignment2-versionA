@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-
+#name: Prince Dungrani
+#ID: 120669221
 '''
 OPS445 Assignment 2
-Program: assignment2.py 
-Author: "Student Name"
-Semester: "Enter Winter/Summer/Fall Year"
+Program: ops445-ZAA 
+Name: Prince Dungrani
+Semester: "Fall 2024
 
 The python code in this file is original work written by
-"Student Name". No code in this file is copied from any other source 
+''Prince Dungrani. No code in this file is copied from any other source 
 except those provided by the course instructor, including any person, 
 textbook, or on-line resource. I have not shared this python script 
 with anyone or anything except for submission for grading.  
 I understand that the Academic Honesty Policy will be enforced and 
 violators will be reported and appropriate action will be taken.
 
-Description: <Enter your documentation here>
+Description: this thi my OPS445-Assignment-2 version A code. 
 
 '''
 
@@ -34,18 +35,43 @@ def parse_command_args() -> object:
 # -H human readable
 # -r running only
 
+##this function will take 2 inputs- percent and lenght, which will be used to crearte graph. 
 def percent_to_graph(percent: float, length: int=20) -> str:
     "turns a percent 0.0 - 1.0 into a bar graph"
     ...
 # percent to graph function
+    num_of_hashes = int(percent * length)
+    num_of_spaces = length - num_of_hashes
+    return '#' * num_of_hashes + ' ' * num_of_spaces
 
 def get_sys_mem() -> int:
-    "return total system memory (used or available) in kB"
+    """return total system memory in kB"""
     ...
+    path_of_the_file= '/proc/meminfo' 
+    # will try to open the file, if cannot, will return 0
+    try:
+        with open(path_of_the_file, 'r') as file:  #open file
+            for entry in file:  # read all line
+                if 'MemTotal:' in entry: #look for MemTotal in lines
+                    memory_total = int(entry.split()[1])
+                    return memory_total  
+    except: #except error
+        return 0 #return 
 
 def get_avail_mem() -> int:
     "return total memory that is available"
     ...
+    path_of_the_file = '/proc/meminfo'
+    try:
+        memory_file = open(path_of_the_file, 'r') #open file
+        lines = memory_file.readlines() # read line
+        memory_file.close() # close file
+        for line in lines: #look for memtotal line in each line
+            if 'MemAvailable:' in line:
+                available_mememory = int(line.split()[1])
+                return available_mememory
+    except : #ecpect error and return 0 if error
+        return 0
 
 def pids_of_prog(app_name: str) -> list:
     "given an app name, return all pids associated with app"
